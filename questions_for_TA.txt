@@ -1,0 +1,3 @@
+Do we have to test the HEAD and OPT endpoints or only endpoints with business logic
+Are the same nested ids intended? area of potential instability
+What to put in the summaries?
