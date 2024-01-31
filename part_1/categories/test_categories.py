@@ -2,11 +2,26 @@ import requests
 from utils.utils import *
 
 
+def test_options_categories():
+    response = requests.options(API_URL + "/categories")
+    assert response.status_code == 200
+    assert response.headers["Allow"] == "OPTIONS, GET, HEAD, POST"
+
+
+def test_head_categories():
+    response = requests.head(API_URL + "/categories")
+    assert response.status_code == 200
+    assert response.headers["Content-Type"] == "application/json"
+    assert response.text == ""
+
+
 # Test get categories
 def test_get_categories_no_params():
     response = requests.get(API_URL + "/categories")
     assert response.status_code == 200
-    assert response.json() == default_categories
+    assert {
+        "categories": sorted(response.json()["categories"], key=lambda x: int(x["id"]))
+    } == default_categories
 
 
 def test_get_categories_by_valid_id():
@@ -24,7 +39,9 @@ def test_get_categories_by_valid_title():
 def test_get_categories_by_valid_description():
     response = requests.get(API_URL + "/categories", params={"description": ""})
     assert response.status_code == 200
-    assert response.json() == default_categories
+    assert {
+        "categories": sorted(response.json()["categories"], key=lambda x: int(x["id"]))
+    } == default_categories
 
 
 def test_get_categories_by_invalid_param_value():
@@ -36,4 +53,49 @@ def test_get_categories_by_invalid_param_value():
 def test_get_categories_by_inexistent_param():
     response = requests.get(API_URL + "/categories", params={"bad_key": "0"})
     assert response.status_code == 200
-    assert response.json() == default_categories
+    assert {
+        "categories": sorted(response.json()["categories"], key=lambda x: int(x["id"]))
+    } == default_categories
+
+
+# Test post categories
+
+
+def test_post_category_no_title():
+    response = requests.post(API_URL + "/categories", json={})
+    assert response.status_code == 400
+    assert response.json() == post_category_no_title
+
+
+def test_post_category_only_title():
+    response = requests.post(API_URL + "/categories", json={"title": category_name})
+    assert response.status_code == 201
+    delete_category(response.json()["id"])
+    assert response.json()["title"] == category_name
+
+
+def test_post_category_with_title_and_id():
+    response = requests.post(
+        API_URL + "/categories", json={"id": "0", "title": category_name}
+    )
+    assert response.status_code == 400
+    assert response.json() == post_category_with_id
+
+
+def test_post_category_with_title_desc():
+    response = requests.post(
+        API_URL + "/categories",
+        json={"title": category_name, "description": category_desc},
+    )
+    assert response.status_code == 201
+    delete_category(response.json()["id"])
+    assert response.json()["title"] == category_name
+    assert response.json()["description"] == category_desc
+
+
+def test_post_category_with_bad_field():
+    response = requests.post(
+        API_URL + "/categories", json={"idd": "0", "title": category_name}
+    )
+    assert response.status_code == 400
+    assert response.json() == post_category_bad_field
