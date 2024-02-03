@@ -1,5 +1,5 @@
 import requests
-from utils.utils import *
+from utils.cat_utils import *
 
 
 def test_options_cat_id_todos():

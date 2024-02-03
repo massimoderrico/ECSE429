@@ -20,6 +20,11 @@ todo_desc = "This is a nice todo"
 empty_cat_todos = {"todos": []}
 invalid_todo_id = 0
 
+project_name = "Project_1"
+project_desc = "This is a nice project"
+empty_cat_projects = {"projects": []}
+invalid_project_id = 0
+
 # Error messages
 no_title_err = {"errorMessages": ["title : field is mandatory"]}
 post_category_with_id = {
@@ -54,6 +59,25 @@ cat_todo_invalid_cat_id_err = {
         f"Could not find any instances with categories/{invalid_cat_id}/todos/{invalid_todo_id}"
     ]
 }
+cat_invalid_id_project_err = {
+    "errorMessages": [
+        f"Could not find parent thing for relationship categories/{invalid_cat_id}/projects"
+    ]
+}
+cat_project_with_id_err = {
+    "errorMessages": ["Could not find thing matching value for id"]
+}
+invalid_field_err = {
+    "errorMessages": [
+        'Cannot invoke "uk.co.compendiumdev.thingifier.core.domain.definitions.field.definition.Field.getType()" because "field" is null'
+    ]
+}
+
+cat_project_invalid_cat_id_err = {
+    "errorMessages": [
+        f"Could not find any instances with categories/{invalid_cat_id}/projects/{invalid_project_id}"
+    ]
+}
 
 
 # Helper functions
@@ -76,4 +100,17 @@ def create_cat_todo(cat_id, todo_payload):
 
 def delete_cat_todo(cat_id, todo_id):
     response = requests.delete(API_URL + f"/categories/{cat_id}/todos/{todo_id}")
+    assert response.status_code == 200
+
+
+def create_cat_project(cat_id, project_payload):
+    response = requests.post(
+        API_URL + f"/categories/{cat_id}/projects", json=project_payload
+    )
+    assert response.status_code == 201
+    return response.json()
+
+
+def delete_cat_project(cat_id, project_id):
+    response = requests.delete(API_URL + f"/categories/{cat_id}/projects/{project_id}")
     assert response.status_code == 200
