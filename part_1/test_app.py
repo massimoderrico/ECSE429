@@ -1,6 +1,5 @@
 import requests
-
-API_URL = "http://localhost:4567"
+from utils.utils import API_URL
 
 
 def test_api_is_active():
