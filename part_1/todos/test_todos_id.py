@@ -57,6 +57,7 @@ def test_put_todo_id_valid_payload():
     assert response.json() == {
         "id": str(id),
         "title": todo_name,
+        "doneStatus": todo_done_status,
         "description": todo_desc,
     }
     delete_todo(id)
@@ -86,7 +87,7 @@ def test_put_todo_id_invalid_field_in_payload():
     delete_todo(id)
 
 
-# Test post todo with id
+# # Test post todo with id
 
 
 def test_post_todo_id_invalid_id():
@@ -112,6 +113,7 @@ def test_post_todo_id_valid_payload():
     assert response.json() == {
         "id": str(id),
         "title": todo_name,
+        "doneStatus": todo_done_status,
         "description": todo_desc,
     }
     delete_todo(id)

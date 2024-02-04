@@ -31,7 +31,7 @@ def test_get_todos_by_valid_id():
 
 
 def test_get_todos_by_valid_title():
-    response = requests.get(API_URL + "/todos", params={"title": "Home"})
+    response = requests.get(API_URL + "/todos", params={"title": "file paperwork"})
     assert response.status_code == 200
     assert response.json() == {"todos": [default_todos["todos"][1]]}
 
