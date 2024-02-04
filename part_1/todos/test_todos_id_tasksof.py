@@ -18,12 +18,11 @@ def test_head_todos_id_tasksof():
 # Test get tasksof by todo id
 
 ################################################################ need to return all taskofs when invid, change return object
-# def test_get_todos_id_tasksof_invalid_todo_id():
-#     taskof_id = 0
-#     # Create under a good todo
-#     response = requests.get(API_URL + f"/todos/{invalid_todo_id}/tasksof")
-#     assert response.status_code == 200
-#     assert response.json() == {"tasksof": [default_tasksof["tasksof"][taskof_id]]}
+def test_get_todos_id_tasksof_invalid_todo_id():
+    response = requests.get(API_URL + f"/todos/{invalid_todo_id}/tasksof")
+    assert response.status_code == 200
+    tasks = [default_tasksof["projects"][0], default_tasksof["projects"][0]]
+    assert response.json() == {"projects": tasks}
 
 
 def test_get_todos_id_tasksof_valid_todo_id():

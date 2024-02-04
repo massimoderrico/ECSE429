@@ -18,12 +18,10 @@ def test_head_todos_id_categories():
 # Test get categories by todo id
 
 ################################################################ need to return all cats when invid, change return object
-# def test_get_todos_id_categories_invalid_todo_id():
-#     category_id = 0
-#     # Create under a good todo
-#     response = requests.get(API_URL + f"/todos/{invalid_todo_id}/categories")
-#     assert response.status_code == 200
-#     assert response.json() == {"categories": [default_categories["categories"][category_id]]}
+def test_get_todos_id_categories_invalid_todo_id():
+    response = requests.get(API_URL + f"/todos/{invalid_todo_id}/categories")
+    assert response.status_code == 200
+    assert response.json() == {"categories": [default_categories["categories"][0]]}
 
 
 def test_get_todos_id_categories_valid_todo_id():
