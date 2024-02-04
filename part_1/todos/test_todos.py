@@ -25,15 +25,15 @@ def test_get_todos_no_params():
 
 
 def test_get_todos_by_valid_id():
-    response = requests.get(API_URL + "/todos", params={"id": "1"})
+    response = requests.get(API_URL + "/todos", params={"id": str(valid_todo_id)})
     assert response.status_code == 200
-    assert response.json() == {"todos": [default_todos["todos"][0]]}
+    assert response.json() == {"todos": [default_todos["todos"][valid_todo_id-1]]}
 
 
 def test_get_todos_by_valid_title():
-    response = requests.get(API_URL + "/todos", params={"title": "file paperwork"})
+    response = requests.get(API_URL + "/todos", params={"title": "scan paperwork"})
     assert response.status_code == 200
-    assert response.json() == {"todos": [default_todos["todos"][1]]}
+    assert response.json() == {"todos": [default_todos["todos"][valid_todo_id-1]]}
 
 
 def test_get_todos_by_valid_description():
@@ -88,14 +88,19 @@ def test_post_todo_with_title_desc():
         json={"title": todo_name, "description": todo_desc},
     )
     assert response.status_code == 201
-    delete_todo(response.json()["id"])
-    assert response.json()["title"] == todo_name
-    assert response.json()["description"] == todo_desc
+    todo_id = response.json().get("id")
+    assert response.json() == {
+        "id": todo_id,
+        "title": todo_name,
+        "doneStatus": todo_done_status,
+        "description": todo_desc
+    }
+    delete_todo(todo_id)
 
 
 def test_post_todo_with_bad_field():
     response = requests.post(
-        API_URL + "/todos", json={"idd": "0", "title": todo_name}
+        API_URL + "/todos", json={ todo_bad_field : "0", "title": todo_name}
     )
     assert response.status_code == 400
     assert response.json() == todo_bad_field_err

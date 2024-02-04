@@ -24,4 +24,3 @@ def test_delete_todo_id_categories_id_valid():
     response = requests.delete(API_URL + f"/todos/{valid_todo_id}/categories/{category_id}")
     assert response.status_code == 200
     assert response.text == ""
-    delete_category(category_id)

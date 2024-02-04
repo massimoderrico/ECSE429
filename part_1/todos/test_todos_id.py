@@ -9,7 +9,7 @@ def test_options_todos_id():
 
 
 def test_head_todos_id():
-    response = requests.head(API_URL + "/todos/1")
+    response = requests.head(API_URL + f"/todos/{valid_todo_id}")
     assert response.status_code == 200
     assert response.headers["Content-Type"] == "application/json"
     assert response.text == ""
@@ -19,8 +19,7 @@ def test_head_todos_id():
 
 
 def test_get_todo_id_valid_id():
-    id = 1
-    response = requests.get(API_URL + "/todos/" + str(id))
+    response = requests.get(API_URL + "/todos/" + str(valid_todo_id))
     assert response.status_code == 200
     assert response.json() == {"todos": [default_todos["todos"][0]]}
 
@@ -41,8 +40,7 @@ def test_put_todo_id_invalid_id():
 
 
 def test_put_todo_id_no_title():
-    id = 1
-    response = requests.put(API_URL + "/todos/" + str(id), json={})
+    response = requests.put(API_URL + "/todos/" + str(valid_todo_id), json={})
     assert response.status_code == 400
     assert response.json() == no_title_err
 
@@ -97,8 +95,7 @@ def test_post_todo_id_invalid_id():
 
 
 def test_post_todo_id_no_payload():
-    id = 1
-    response = requests.post(API_URL + "/todos/" + str(id), json={})
+    response = requests.post(API_URL + "/todos/" + str(valid_todo_id), json={})
     assert response.status_code == 200
     assert response.json() == default_todos["todos"][0]
 
