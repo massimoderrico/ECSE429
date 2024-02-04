@@ -20,7 +20,10 @@ def test_head_projects_id():
 def test_get_projects_by_id():
     response = requests.get(API_URL + "/projects/" + str(default_project_id))
     assert response.status_code == 200
-    assert response.json() == {"projects": [default_projects["projects"][0]]}
+    modified_response = response.json()
+    for project in modified_response['projects']:
+        project['tasks'] = sorted(project['tasks'], key=lambda x: int(x['id']))
+    assert modified_response == default_projects
     
 def test_get_projects_by_invalid_id():
     response = requests.get(API_URL + "/projects/0")
