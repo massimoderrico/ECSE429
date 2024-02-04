@@ -1,5 +1,5 @@
 import requests
-from utils.utils import *
+from utils.cat_utils import *
 
 def test_options_categories():
     response = requests.options(API_URL + "/categories")
@@ -63,19 +63,19 @@ def test_get_categories_by_inexistent_param():
 def test_post_category_no_title():
     response = requests.post(API_URL + "/categories", json={})
     assert response.status_code == 400
-    assert response.json() == post_category_no_title
+    assert response.json() == no_title_err
 
 
 def test_post_category_only_title():
-    response = requests.post(API_URL + "/categories", json={"title": category_name})
+    response = requests.post(API_URL + "/categories", json={"title": cat_name})
     assert response.status_code == 201
     delete_category(response.json()["id"])
-    assert response.json()["title"] == category_name
+    assert response.json()["title"] == cat_name
 
 
 def test_post_category_with_title_and_id():
     response = requests.post(
-        API_URL + "/categories", json={"id": "0", "title": category_name}
+        API_URL + "/categories", json={"id": "0", "title": cat_name}
     )
     assert response.status_code == 400
     assert response.json() == post_category_with_id
@@ -84,17 +84,17 @@ def test_post_category_with_title_and_id():
 def test_post_category_with_title_desc():
     response = requests.post(
         API_URL + "/categories",
-        json={"title": category_name, "description": category_desc},
+        json={"title": cat_name, "description": cat_desc},
     )
     assert response.status_code == 201
     delete_category(response.json()["id"])
-    assert response.json()["title"] == category_name
-    assert response.json()["description"] == category_desc
+    assert response.json()["title"] == cat_name
+    assert response.json()["description"] == cat_desc
 
 
 def test_post_category_with_bad_field():
     response = requests.post(
-        API_URL + "/categories", json={"idd": "0", "title": category_name}
+        API_URL + "/categories", json={"idd": "0", "title": cat_name}
     )
     assert response.status_code == 400
-    assert response.json() == post_category_bad_field
+    assert response.json() == cat_bad_field_err
