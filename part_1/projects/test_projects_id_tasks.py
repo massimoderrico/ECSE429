@@ -19,11 +19,6 @@ def test_get_projects_id_tasks_by_valid_id():
     assert response.status_code == 200
     sorted_todos = sorted(response.json()["todos"], key=lambda x: x["id"])
     assert sorted_todos == sorted(default_project_tasks["todos"], key=lambda x: x["id"])
-
-# def test_get_projects_id_tasks_by_invalid_id():
-#     response = requests.get(API_URL + "/projects/0/tasks")
-#     assert response.status_code == 404
-#     assert response.json() == get_project_bad_id
     
 def test_get_projects_id_tasks_by_invalid_param_value():
     response = requests.get(API_URL + "/projects/1/tasks", params={"id": "0"})
@@ -52,6 +47,7 @@ def test_post_projects_id_tasks():
     response = requests.post(API_URL + "/projects/1/tasks", json={"title": "pa qui officia deser","doneStatus": False,"description": "ex ea commodo consea"})
     assert response.status_code == 201
     delete_project_task(response.json()["id"])
+    delete_task(response.json()["id"])
 
 def test_post_projects_id_tasks_no_title():
     response = requests.post(API_URL + "/projects/1/tasks", json={"doneStatus": False,"description": "ex ea commodo consea"})
@@ -62,8 +58,11 @@ def test_post_projects_id_tasks_no_doneStatus():
     response = requests.post(API_URL + "/projects/1/tasks", json={"title": "pa qui officia deser","description": "ex ea commodo consea"})
     assert response.status_code == 201
     delete_project_task(response.json()["id"])
+    delete_task(response.json()["id"])
+
 
 def test_post_projects_id_tasks_no_description():
     response = requests.post(API_URL + "/projects/1/tasks", json={"title": "pa qui officia deser","doneStatus": False})
     assert response.status_code == 201
     delete_project_task(response.json()["id"])
+    delete_task(response.json()["id"])
