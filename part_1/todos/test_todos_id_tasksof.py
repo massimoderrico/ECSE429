@@ -28,7 +28,9 @@ def test_get_todos_id_tasksof_invalid_todo_id():
 def test_get_todos_id_tasksof_valid_todo_id():
     response = requests.get(API_URL + f"/todos/{valid_todo_id}/tasksof")
     assert response.status_code == 200
-    assert response.json() == default_tasksof
+    assert {
+        "projects": sorted(response.json()["projects"], key=lambda x: int(x["id"]))
+    } == default_tasksof
 # # Test post tasksof by todo id
 
 def test_post_todos_id_tasksof_invalid_todo_id():
