@@ -17,26 +17,34 @@ def test_head_todos_id_tasksof():
 
 # Test get tasksof by todo id
 
+
 ################################################################ need to return all taskofs when invid, change return object
 def test_get_todos_id_tasksof_invalid_todo_id():
     response = requests.get(API_URL + f"/todos/{invalid_todo_id}/tasksof")
     assert response.status_code == 200
     tasks = [default_tasksof["projects"][0], default_tasksof["projects"][0]]
-    assert response.json() == {"projects": tasks}
+    projects = response.json()
+    for project in projects["projects"]:
+        project["tasks"] = sorted(project["tasks"], key=lambda x: int(x["id"]))
+    assert projects == {"projects": tasks}
 
 
 def test_get_todos_id_tasksof_valid_todo_id():
     response = requests.get(API_URL + f"/todos/{valid_todo_id}/tasksof")
     assert response.status_code == 200
-    assert {
-        "projects": sorted(response.json()["projects"], key=lambda x: int(x["id"]))
-    } == default_tasksof
+    project = response.json()["projects"][0]
+    project["tasks"] = sorted(project["tasks"], key=lambda x: int(x["id"]))
+    assert {"projects": [project]} == default_tasksof
+
+
 # # Test post tasksof by todo id
+
 
 def test_post_todos_id_tasksof_invalid_todo_id():
     response = requests.post(API_URL + "/todos/" + str(invalid_todo_id) + "/tasksof")
     assert response.status_code == 404
     assert response.json() == todo_invalid_id_taskof_err
+
 
 def test_post_todos_id_tasksof_no_title():
     response = requests.post(API_URL + f"/todos/{valid_todo_id}/tasksof", json={})
@@ -48,14 +56,15 @@ def test_post_todos_id_tasksof_no_title():
         "description": "",
         "completed": taskof_completed,
         "active": taskof_active,
-        'tasks': [{'id': str(valid_todo_id)}],
+        "tasks": [{"id": str(valid_todo_id)}],
     }
     delete_project(project_id)
+
 
 def test_post_todos_id_tasksof_with_title():
     response = requests.post(
         API_URL + f"/todos/{valid_todo_id}/tasksof",
-        json={"title": taskof_name, "description": taskof_desc}
+        json={"title": taskof_name, "description": taskof_desc},
     )
     assert response.status_code == 201
     project_id = response.json().get("id")
@@ -65,7 +74,7 @@ def test_post_todos_id_tasksof_with_title():
         "description": taskof_desc,
         "completed": taskof_completed,
         "active": taskof_active,
-        'tasks': [{'id': str(valid_todo_id)}],
+        "tasks": [{"id": str(valid_todo_id)}],
     }
     delete_project(project_id)
 
@@ -73,18 +82,21 @@ def test_post_todos_id_tasksof_with_title():
 def test_post_todos_id_tasksof_invalid_id_in_payload():
     response = requests.post(
         API_URL + f"/todos/{valid_todo_id}/tasksof",
-        json={"id": invalid_taskof_id, "title": taskof_name, "description": taskof_desc},
+        json={
+            "id": invalid_taskof_id,
+            "title": taskof_name,
+            "description": taskof_desc,
+        },
     )
     assert response.status_code == 404
     assert response.json() == cannot_find_id_err
 
+
 def test_post_todos_id_tasksof_valid_id_in_payload():
     project_id = create_project({}).get("id")
     response = requests.post(
-        API_URL + f"/todos/{valid_todo_id}/tasksof",
-        json={"id": str(project_id)}
+        API_URL + f"/todos/{valid_todo_id}/tasksof", json={"id": str(project_id)}
     )
     assert response.status_code == 201
     assert response.text == ""
     delete_project(project_id)
-
