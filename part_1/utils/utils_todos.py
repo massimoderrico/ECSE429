@@ -126,6 +126,11 @@ todo_cat_invalid_todo_id_err = {
         f"Could not find any instances with todos/{invalid_todo_id}/categories/{invalid_cat_id}"
     ]
 }
+todo_taskof_invalid_todo_id_err = {
+    "errorMessages": [
+        f"Could not find any instances with todos/{invalid_todo_id}/tasksof/{invalid_taskof_id}"
+    ]
+}
 todo_invalid_id_category_err ={
     "errorMessages": [
         f"Could not find parent thing for relationship todos/{invalid_todo_id}/categories"
@@ -176,3 +181,10 @@ def delete_project(id):
 def delete_todo_taskof(todo_id, taskof_id):
     response = requests.delete(API_URL + f"/todos/{todo_id}/tasksof/{taskof_id}")
     assert response.status_code == 200
+
+def create_todo_taskof(todo_id, payload):
+    response = requests.post(API_URL + f"/todos/{todo_id}/tasksof", json=payload)
+    assert response.status_code == 201
+    return response.json()
+
+    
