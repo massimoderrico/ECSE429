@@ -26,6 +26,7 @@ def test_get_projects_id_categories_by_valid_id():
     
     assert data_without_id == default_project_category
     delete_default_project_category(data['id'])
+    delete_category(data["id"])
 
 def test_get_projects_id_categories_by_invalid_param_value():
     response = requests.get(API_URL + "/projects/1/categories", params={"id": "0"})
@@ -42,6 +43,7 @@ def test_get_projects_id_categories_valid_title_param():
     
     assert data_without_id == default_project_category
     delete_default_project_category(data['id'])
+    delete_category(data["id"])
 
 def test_get_projects_id_categories_valid_description_param():
     create_default_project_category()
@@ -53,6 +55,8 @@ def test_get_projects_id_categories_valid_description_param():
     
     assert data_without_id == default_project_category
     delete_default_project_category(data['id'])
+    delete_category(data["id"])
+
 
 
 def test_get_projects_id_categories_by_invalid_param():
@@ -81,3 +85,4 @@ def test_post_projects_id_categories():
     assert response.json()["title"] == "Office"
     assert response.json()["description"] == "This is a nice cat"
     delete_default_project_category(response.json()["id"])
+    delete_category(response.json()["id"])

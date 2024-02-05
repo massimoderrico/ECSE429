@@ -26,7 +26,14 @@ default_project_category = {"title": "Office", "description": "Office Descriptio
 default_project_tasks = {"todos":[{"id":"2","title":"file paperwork","doneStatus":"false","description":"","tasksof":[{"id":"1"}]},{"id":"1","title":"scan paperwork","doneStatus":"false","description":"","categories":[{"id":"1"}],"tasksof":[{"id":"1"}]}]}
 
 
+
 #error messages
+post_category_no_title = {"errorMessages": ["title : field is mandatory"]}
+post_category_bad_field = {"errorMessages": ["Could not find field: idd"]}
+
+category_name = "Cat_1"
+category_desc = "This is a nice cat"
+
 post_project_no_title = {"errorMessages": ["title : field is mandatory"]}
 post_project_with_id = {
     "errorMessages": [
@@ -76,22 +83,25 @@ def reset_default_project():
     reset_default_project_title()
     reset_default_project_tasks()
 
-def recreate_default_project():
-    response = requests.post(API_URL + "/projects", json={"title": "Office Work", "description": "", "tasks": [{"id": "1"},{"id": "2"}]})
-    assert response.status_code == 201
-    delete_project(response.json()["id"])
-    assert response.json()["title"] == "Office Work"
-
 def create_default_project_category():
     response = requests.post(API_URL + "/projects/1/categories", json=default_project_category)
     assert response.status_code == 201
-    print(response.json())
     return int(response.json()["id"])
     
 def delete_default_project_category(id):
     response = requests.delete(API_URL + "/projects/1/categories/" + str(id))
     assert response.status_code == 200
 
+def delete_category(id):
+    response = requests.delete(API_URL + "/categories/" + str(id))
+    assert response.status_code == 200
+    
 def delete_project_task(id):
     response = requests.delete(API_URL + "/projects/1/tasks/" + str(id))
+    assert response.status_code == 200
+
+def delete_task(id):
+    response = requests.delete(API_URL + "/todos/" + str(id))
     assert response.status_code == 200  
+
+    
