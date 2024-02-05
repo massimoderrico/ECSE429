@@ -1,4 +1,5 @@
 import requests
+from utils.projects_utils import delete_project
 from utils.cat_utils import *
 
 
@@ -25,3 +26,4 @@ def test_delete_cat_id_projects_id_valid():
     response = requests.delete(API_URL + f"/categories/{cat_id}/projects/{project_id}")
     assert response.status_code == 200
     assert response.text == ""
+    delete_project(project_id)

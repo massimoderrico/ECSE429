@@ -1,4 +1,5 @@
 import requests
+from utils.utils_todos import delete_todo
 from utils.cat_utils import *
 
 
@@ -24,8 +25,10 @@ def test_get_cat_id_todos_invalid_cat_id():
     todo = create_cat_todo(cat_id, {"title": todo_name, "description": todo_desc})
     response = requests.get(API_URL + f"/categories/{invalid_cat_id}/todos")
     assert response.status_code == 200
+    todo_id = todo.get("id")
     assert response.json() == {"todos": [todo]}
-    delete_cat_todo(cat_id, todo.get("id"))
+    delete_cat_todo(cat_id, todo_id)
+    delete_todo(todo_id)
 
 
 def test_get_cat_id_todos_valid_cat_id_empty():
@@ -41,8 +44,10 @@ def test_get_cat_id_todos_for_one_cat_id():
     todo = create_cat_todo(cat_id, {"title": todo_name, "description": todo_desc})
     response = requests.get(API_URL + f"/categories/{other_cat_id}/todos")
     assert response.status_code == 200
+    todo_id = todo.get("id")
     assert response.json() == empty_cat_todos
-    delete_cat_todo(cat_id, todo.get("id"))
+    delete_cat_todo(cat_id, todo_id)
+    delete_todo(todo_id)
 
 
 # Test post todos by category id
@@ -76,6 +81,7 @@ def test_post_cat_id_todos_valid_payload():
         "description": todo_desc,
     }
     delete_cat_todo(cat_id, todo_id)
+    delete_todo(todo_id)
 
 
 def test_post_cat_id_todos_id_in_payload():

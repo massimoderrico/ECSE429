@@ -1,4 +1,5 @@
 import requests
+from utils.projects_utils import delete_project
 from utils.cat_utils import *
 
 
@@ -26,8 +27,10 @@ def test_get_cat_id_projects_invalid_cat_id():
     )
     response = requests.get(API_URL + f"/categories/{invalid_cat_id}/projects")
     assert response.status_code == 200
+    project_id = project.get("id")
     assert response.json() == {"projects": [project]}
-    delete_cat_project(cat_id, project.get("id"))
+    delete_cat_project(cat_id, project_id)
+    delete_project(project_id)
 
 
 def test_get_cat_id_projects_valid_cat_id_empty():
@@ -45,8 +48,10 @@ def test_get_cat_id_projects_for_one_cat_id():
     )
     response = requests.get(API_URL + f"/categories/{other_cat_id}/projects")
     assert response.status_code == 200
+    project_id = project.get("id")
     assert response.json() == empty_cat_projects
-    delete_cat_project(cat_id, project.get("id"))
+    delete_cat_project(cat_id, project_id)
+    delete_project(project_id)
 
 
 # Test post projects by category id
@@ -73,6 +78,7 @@ def test_post_cat_id_projects_no_title():
         "description": "",
     }
     delete_cat_project(cat_id, project_id)
+    delete_project(project_id)
 
 
 def test_post_cat_id_projects_valid_payload():
@@ -91,6 +97,7 @@ def test_post_cat_id_projects_valid_payload():
         "description": project_desc,
     }
     delete_cat_project(cat_id, project_id)
+    delete_project(project_id)
 
 
 def test_post_cat_id_projects_id_in_payload():

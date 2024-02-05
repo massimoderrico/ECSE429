@@ -1,4 +1,5 @@
 import requests
+from utils.utils_todos import delete_todo
 from utils.cat_utils import *
 
 
@@ -25,3 +26,4 @@ def test_delete_cat_id_todos_id_valid():
     response = requests.delete(API_URL + f"/categories/{cat_id}/todos/{todo_id}")
     assert response.status_code == 200
     assert response.text == ""
+    delete_todo(todo_id)
