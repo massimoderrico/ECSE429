@@ -28,3 +28,4 @@ def test_delete_projects_id_tasks_id():
     assert response.status_code == 200
     sorted_todos = sorted(response.json()["todos"], key=lambda x: x["id"])
     assert sorted_todos == sorted(default_project_tasks["todos"], key=lambda x: x["id"])
+    delete_task(id)

@@ -26,3 +26,4 @@ def test_delete_projects_id_categories_id():
     response = requests.get(API_URL + "/projects/1/categories")
     assert response.status_code == 200
     assert response.json() == empty_categories
+    delete_category(id)
