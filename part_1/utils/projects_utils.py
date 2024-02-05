@@ -26,7 +26,14 @@ default_project_category = {"title": "Office", "description": "Office Descriptio
 default_project_tasks = {"todos":[{"id":"2","title":"file paperwork","doneStatus":"false","description":"","tasksof":[{"id":"1"}]},{"id":"1","title":"scan paperwork","doneStatus":"false","description":"","categories":[{"id":"1"}],"tasksof":[{"id":"1"}]}]}
 
 
+
 #error messages
+post_category_no_title = {"errorMessages": ["title : field is mandatory"]}
+post_category_bad_field = {"errorMessages": ["Could not find field: idd"]}
+
+category_name = "Cat_1"
+category_desc = "This is a nice cat"
+
 post_project_no_title = {"errorMessages": ["title : field is mandatory"]}
 post_project_with_id = {
     "errorMessages": [
