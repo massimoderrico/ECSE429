@@ -1,6 +1,7 @@
 import requests
 from utils.cat_utils import *
 
+
 def test_options_categories():
     response = requests.options(API_URL + "/categories")
     assert response.status_code == 200
