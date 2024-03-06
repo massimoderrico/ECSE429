@@ -7,9 +7,9 @@ Feature: Modify Category
 
     # Normal Flow
     Scenario Outline: Modify the description of a category
-        When the user requests to modify the description of category "<id>" to "<description>"
-        Then the status code "200" will be received
-        Then the user will receive the modified category object with id "<id>", title "<title>", and description "<description>"
+        When the user requests to modify the description of category <id> to description <description>
+        Then the status code 200 will be received
+        Then the user will receive the modified category object with id <id>, title <title>, and description <description>
 
         Examples:
             | id | title  | description        |
@@ -17,9 +17,9 @@ Feature: Modify Category
 
     # Alternate Flow
     Scenario Outline: Modify the title of a category
-        When the user requests to modify the description of category "<id>" to "<title>"
-        Then the status code "200" will be received
-        Then the user will receive the modified category object with id "<id>", title "<title>", and description "<description>"
+        When the user requests to modify the description of category <id> to title <title>
+        Then the status code 200 will be received
+        Then the user will receive the modified category object with id <id>, title <title>, and description <description>
 
         Examples:
             | id | title | description |
@@ -27,8 +27,8 @@ Feature: Modify Category
 
     # Error Flow
     Scenario Outline: Modify a category with an invalid category ID
-        When the user requests to modify a category with invalid id "0"
-        Then the error "<error>" shall be raised with http status code "<httpstatus>"
+        When the user requests to modify a category with invalid id 0
+        Then the error <error> shall be raised with http status code <httpstatus>
 
         Examples:
             | error                                                    | httpstatus |
