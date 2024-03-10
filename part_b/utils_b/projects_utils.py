@@ -1,5 +1,6 @@
 import requests
-from utils.utils import *
+
+API_URL = "http://localhost:4567"
 
 #defaults
 default_projects = {
