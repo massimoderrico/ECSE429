@@ -7,9 +7,9 @@ Feature: Create Category Todo
 
     # Normal Flow
     Scenario Outline: Create a category todo with only title
-        When the user requests to create a todo with title "<title>" under category "<categoryID>"
-        Then the status code "201" will be received
-        Then the user will receive the created todo object with title "<title>", done status "<doneStatus>", and description "<description>"
+        When the user requests to create a todo with title <title> under category <categoryID>
+        Then the status code 201 will be received
+        Then the user will receive the created todo object with title <title>, done status <doneStatus>, and description <description>
 
         Examples:
             | categoryID | title  | doneStatus | description |
@@ -17,9 +17,9 @@ Feature: Create Category Todo
 
     # Alternate Flow
     Scenario Outline: Create a category todo specifying all fields of todos
-        When the user requests to create a todo with title "<title>",  done status "<doneStatus>", and description "<description>" under category "<categoryID>"
-        Then the status code "201" will be received
-        Then the user will receive the created todo object with title "<title>", done status "<doneStatus>", and description "<description>"
+        When the user requests to create a todo with title <title>,  done status <doneStatus>, and description <description> under category <categoryID>
+        Then the status code 201 will be received
+        Then the user will receive the created todo object with title <title>, done status <doneStatus>, and description <description>
 
         Examples:
             | categoryID | title  | doneStatus | description         |
@@ -27,8 +27,8 @@ Feature: Create Category Todo
 
     # Error Flow
     Scenario Outline: Create a category todo without title
-        When the user requests to create a todo with under category "<categoryID>"
-        Then the error "<error>" shall be raised with http status code "<httpstatus>"
+        When the user requests to create a todo with under category 1
+        Then the error <error> shall be raised with http status code <httpstatus>
 
         Examples:
             | error                      | httpstatus |
