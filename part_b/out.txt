@@ -1,0 +1,39 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.10.7, pytest-8.0.2, pluggy-1.4.0 -- /Users/sadekmahmood/Projects/ECSE429/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /Users/sadekmahmood/Projects/ECSE429/part_b
+plugins: bdd-7.1.1
+collecting ... collected 27 items
+
+resources/projects/test_create_project_todo.py::test_get_projects_normal <- ../.venv/lib/python3.10/site-packages/pytest_bdd/scenario.py PASSED
+resources/projects/test_create_project_todo.py::test_get_projects_alternative <- ../.venv/lib/python3.10/site-packages/pytest_bdd/scenario.py PASSED
+resources/projects/test_create_project_todo.py::test_get_projects_error <- ../.venv/lib/python3.10/site-packages/pytest_bdd/scenario.py PASSED
+resources/projects/test_create_project_todo.py::test_create_project_todo_normal[1-Todo_1-false-""] <- ../.venv/lib/python3.10/site-packages/pytest_bdd/scenario.py PASSED
+resources/projects/test_create_project_todo.py::test_create_project_todo_alternative[1-Todo_2-true-This is a nice todo] <- ../.venv/lib/python3.10/site-packages/pytest_bdd/scenario.py PASSED
+resources/projects/test_create_project_todo.py::test_create_project_todo_error[1-title : field is mandatory-400] <- ../.venv/lib/python3.10/site-packages/pytest_bdd/scenario.py PASSED
+resources/projects/test_delete_project_relationships.py::test_delete_project_relationships_normal <- ../.venv/lib/python3.10/site-packages/pytest_bdd/scenario.py PASSED
+resources/projects/test_delete_project_relationships.py::test_delete_project_relationships_category <- ../.venv/lib/python3.10/site-packages/pytest_bdd/scenario.py PASSED
+resources/projects/test_delete_project_relationships.py::test_delete_project_relationships_error[Could not find any instances with projects/1/tasks/0-404] <- ../.venv/lib/python3.10/site-packages/pytest_bdd/scenario.py PASSED
+resources/projects/test_get_project_tasks.py::test_get_projects_normal <- ../.venv/lib/python3.10/site-packages/pytest_bdd/scenario.py PASSED
+resources/projects/test_get_project_tasks.py::test_get_projects_alternative <- ../.venv/lib/python3.10/site-packages/pytest_bdd/scenario.py PASSED
+resources/projects/test_get_project_tasks.py::test_get_projects_error <- ../.venv/lib/python3.10/site-packages/pytest_bdd/scenario.py PASSED
+resources/projects/test_get_project_tasks.py::test_modify_project_normal[1-Office Work-This is a description] <- ../.venv/lib/python3.10/site-packages/pytest_bdd/scenario.py PASSED
+resources/projects/test_get_project_tasks.py::test_modify_project_alternative[1-New Office Work-""] <- ../.venv/lib/python3.10/site-packages/pytest_bdd/scenario.py PASSED
+resources/projects/test_get_project_tasks.py::test_modify_project_error[No such project entity instance with GUID or ID 0 found-404] <- ../.venv/lib/python3.10/site-packages/pytest_bdd/scenario.py PASSED
+resources/projects/test_get_project_tasks.py::test_get_project_tasks_normal[1] <- ../.venv/lib/python3.10/site-packages/pytest_bdd/scenario.py 201
+PASSED
+resources/projects/test_get_project_tasks.py::test_get_project_tasks_alternative <- ../.venv/lib/python3.10/site-packages/pytest_bdd/scenario.py 201
+PASSED
+resources/projects/test_get_project_tasks.py::test_get_project_tasks_error <- ../.venv/lib/python3.10/site-packages/pytest_bdd/scenario.py 201
+PASSED
+resources/projects/test_get_projects.py::test_get_projects_normal <- ../.venv/lib/python3.10/site-packages/pytest_bdd/scenario.py PASSED
+resources/projects/test_get_projects.py::test_get_projects_alternative <- ../.venv/lib/python3.10/site-packages/pytest_bdd/scenario.py PASSED
+resources/projects/test_get_projects.py::test_get_projects_error <- ../.venv/lib/python3.10/site-packages/pytest_bdd/scenario.py PASSED
+resources/projects/test_modify_project.py::test_get_projects_normal <- ../.venv/lib/python3.10/site-packages/pytest_bdd/scenario.py PASSED
+resources/projects/test_modify_project.py::test_get_projects_alternative <- ../.venv/lib/python3.10/site-packages/pytest_bdd/scenario.py PASSED
+resources/projects/test_modify_project.py::test_get_projects_error <- ../.venv/lib/python3.10/site-packages/pytest_bdd/scenario.py PASSED
+resources/projects/test_modify_project.py::test_modify_project_normal[1-Office Work-This is a description] <- ../.venv/lib/python3.10/site-packages/pytest_bdd/scenario.py PASSED
+resources/projects/test_modify_project.py::test_modify_project_alternative[1-New Office Work-""] <- ../.venv/lib/python3.10/site-packages/pytest_bdd/scenario.py PASSED
+resources/projects/test_modify_project.py::test_modify_project_error[No such project entity instance with GUID or ID 0 found-404] <- ../.venv/lib/python3.10/site-packages/pytest_bdd/scenario.py PASSED
+
+============================== 27 passed in 1.01s ==============================
