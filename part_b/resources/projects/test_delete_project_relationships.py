@@ -24,7 +24,7 @@ def get_category_id_from_title(category_title):
     
 
 def delete_project_category_relationship(category_title, project_id):
-    response = requests.get(API_URL + "/projects/" + str(project_id) + "/categories")
+    response = requests.get(API_URL + "/categories")
     categories = response.json()["categories"]
     for category in categories:
         if category["title"] == category_title:
@@ -39,7 +39,7 @@ def delete_project_category_relationship(category_title, project_id):
                 print("Error deleting category: " + str(response.content))
 
 def delete_project_todo_relationship(todo_title, project_id):
-    response = requests.get(API_URL + "/projects/" + str(project_id) + "/tasks")
+    response = requests.get(API_URL + "/todos")
     todos = response.json()["todos"]
     for todo in todos:
         if todo["title"] == todo_title:
