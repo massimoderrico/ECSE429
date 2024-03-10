@@ -1,9 +1,8 @@
 from pytest_bdd import scenario, given, when, then, parsers
 import requests
 import pytest
-from utils.utils import *
-from utils.projects_utils import *
-from .test_get_projects import *
+from utils_b.projects_utils import *
+from conftest import *
 
 @pytest.fixture()
 def reset_database():
@@ -11,15 +10,15 @@ def reset_database():
     yield
     reset_default_project()
 
-@scenario('modify_project.feature', 'Modify the description of a project')
+@scenario('../resources/projects/modify_project.feature', 'Modify the description of a project')
 def test_modify_project_normal():
     pass
 
-@scenario('modify_project.feature', 'Modify the title of a project')
+@scenario('../resources/projects/modify_project.feature', 'Modify the title of a project')
 def test_modify_project_alternative():
     pass
 
-@scenario('modify_project.feature', 'Modify a project that does not exist')
+@scenario('../resources/projects/modify_project.feature', 'Modify a project that does not exist')
 def test_modify_project_error():
     pass
 

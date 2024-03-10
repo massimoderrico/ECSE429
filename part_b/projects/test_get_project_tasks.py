@@ -1,10 +1,9 @@
 from pytest_bdd import scenario, given, when, then, parsers
 import requests
 import pytest
-from utils.utils import *
-from utils.projects_utils import *
-from .test_get_projects import *
-from .test_modify_project import *
+from utils_b.projects_utils import *
+from conftest import *
+
 
 @pytest.fixture()
 def reset_database_with_project(scope='module'):
@@ -16,15 +15,15 @@ def reset_database_with_project(scope='module'):
     delete_project(id_temp)
     
 
-@scenario('get_project_tasks.feature', 'Get all tasks for a project')
+@scenario('../resources/projects/get_project_tasks.feature', 'Get all tasks for a project')
 def test_get_project_tasks_normal():
     pass
 
-@scenario('get_project_tasks.feature', 'Get no tasks for a project')
+@scenario('../resources/projects/get_project_tasks.feature', 'Get no tasks for a project')
 def test_get_project_tasks_alternative():
     pass
 
-@scenario('get_project_tasks.feature', 'Get all tasks for a project that does not exist')
+@scenario('../resources/projects/get_project_tasks.feature', 'Get all tasks for a project that does not exist')
 def test_get_project_tasks_error():
     pass
 

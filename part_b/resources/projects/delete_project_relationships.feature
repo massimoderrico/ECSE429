@@ -10,12 +10,12 @@ Feature: Delete instances of relationships with a project
    # Normal Flow
     Scenario Outline: Delete a project todo
         When the user requests to delete the todo with title "Test Todo" for project "1"
-        Then the status code "200" will be received
+        Then the status code "200" will be returned
 
     # Alternate Flow
     Scenario Outline: Delete a project category
         When the user requests to delete the category with title "Test Category" for project "1"
-        Then the status code "200" will be received
+        Then the status code "200" will be returned
 
     # Error Flow
     Scenario Outline: Delete a project todo with invalid project todo ID

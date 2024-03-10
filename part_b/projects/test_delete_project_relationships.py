@@ -1,10 +1,8 @@
 from pytest_bdd import scenario, given, when, then, parsers
 import requests
 import pytest
-from utils.utils import *
-from utils.projects_utils import *
-from .common_steps import *
-
+from utils_b.projects_utils import *
+from conftest import *
 
 def get_todo_id_from_title(todo_title):
     response = requests.get(API_URL + "/todos")
@@ -66,15 +64,15 @@ def reset_database_with_project_relationship(scope='module'):
     delete_project_category_relationship("Test Category", 1)
 
 
-@scenario('delete_project_relationships.feature', 'Delete a project todo')
+@scenario('../resources/projects/delete_project_relationships.feature', 'Delete a project todo')
 def test_delete_project_relationships_normal():
     pass
 
-@scenario('delete_project_relationships.feature', 'Delete a project category')
+@scenario('../resources/projects/delete_project_relationships.feature', 'Delete a project category')
 def test_delete_project_relationships_category():
     pass
 
-@scenario('delete_project_relationships.feature', 'Delete a project todo with invalid project todo ID')
+@scenario('../resources/projects/delete_project_relationships.feature', 'Delete a project todo with invalid project todo ID')
 def test_delete_project_relationships_error():
     pass
 

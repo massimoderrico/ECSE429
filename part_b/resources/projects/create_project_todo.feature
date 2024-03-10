@@ -8,7 +8,7 @@ Feature: Create Project Todo
     # Normal FLow
     Scenario Outline: Create a project todo with only title
         When the user requests to create a todo with title "<title>" for project "<project_id>"
-        Then the status code "201" will be received
+        Then the status code "201" will be returned
         Then the user will receive the created todo object with title "<title>", done status "<done_status>", and description "<description>" for project "<project_id>"
 
     Examples:
@@ -18,7 +18,7 @@ Feature: Create Project Todo
     # Alternate Flow
     Scenario Outline: Create a project todo specifying all fields of todo
         When the user requests to create a todo with title "<title>", done status "<done_status>", and description "<description>" for project "<project_id>"
-        Then the status code "201" will be received
+        Then the status code "201" will be returned
         Then the user will receive the created todo object with title "<title>", done status "<done_status>", and description "<description>" for project "<project_id>"
 
     Examples:

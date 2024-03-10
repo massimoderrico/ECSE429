@@ -8,7 +8,7 @@ Feature: Modify Project
     # Normal Flow
     Scenario Outline: Modify the description of a project
         When the user requests to modify the description of project "<id>" to "<description>"
-        Then the status code "200" will be received
+        Then the status code "200" will be returned
         Then the user will receive the modified project object with id "<id>", title "<title>", and description "<description>"
 
         Examples:
@@ -18,7 +18,7 @@ Feature: Modify Project
     # Alternate Flow
     Scenario Outline: Modify the title of a project
         When the user requests to modify the title of project "<id>" to "<title>"
-        Then the status code "200" will be received
+        Then the status code "200" will be returned
         Then the user will receive the modified project object with id "<id>", title "<title>", and description "<description>"
 
         Examples:
@@ -28,7 +28,7 @@ Feature: Modify Project
     # Error Flow
     Scenario Outline: Modify a project that does not exist
         When the user requests to modify a project with invalid id "0"
-        Then the status code "404" will be received
+        Then the status code "404" will be returned
         Then the error "<error>" shall be raised with http status code "<httpstatus>"
 
         Examples:

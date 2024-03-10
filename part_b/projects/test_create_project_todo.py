@@ -1,9 +1,8 @@
 from pytest_bdd import scenario, given, when, then, parsers
 import requests
 import pytest
-from utils.utils import *
-from utils.projects_utils import *
-from .test_get_projects import *
+from utils_b.projects_utils import *
+from conftest import *
 
 @pytest.fixture()
 def reset_database_with_project_todos(scope='module'):
@@ -11,15 +10,15 @@ def reset_database_with_project_todos(scope='module'):
     delete_todo_and_relationship("Todo_1", 1)
     delete_todo_and_relationship("Todo_2", 1)
 
-@scenario('create_project_todo.feature', 'Create a project todo with only title')
+@scenario('../resources/projects/create_project_todo.feature', 'Create a project todo with only title')
 def test_create_project_todo_normal():
     pass
 
-@scenario('create_project_todo.feature', 'Create a project todo specifying all fields of todo')
+@scenario('../resources/projects/create_project_todo.feature', 'Create a project todo specifying all fields of todo')
 def test_create_project_todo_alternative():
     pass
 
-@scenario('create_project_todo.feature', 'Create a project todo without title')
+@scenario('../resources/projects/create_project_todo.feature', 'Create a project todo without title')
 def test_create_project_todo_error():
     pass
 

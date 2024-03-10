@@ -14,7 +14,7 @@ Feature: Get all tasks for a project
     #Normal Flow
     Scenario Outline: Get all tasks for a project
         When the user requests all tasks for project "<id>"
-        Then the status code "200" will be received
+        Then the status code "200" will be returned
         Then the user will receive a list of all tasks for project "<id>"
 
         Examples:
@@ -24,12 +24,12 @@ Feature: Get all tasks for a project
     #Alternate Flow
     Scenario Outline: Get no tasks for a project
         When the user requests all tasks for project with title "Office Work II"
-        Then the status code "200" will be received
+        Then the status code "200" will be returned
         Then the user will receive an empty list of tasks
 
 
     #Error Flow
     Scenario Outline: Get all tasks for a project that does not exist
         When the user requests all tasks for project "100"
-        Then the status code "200" will be received
+        Then the status code "200" will be returned
         Then the user will receive an empty list of tasks
