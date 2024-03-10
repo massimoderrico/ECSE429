@@ -124,4 +124,35 @@ def delete_todo_and_relationship(todo_title, project_id):
                     delete_project_task(todo["id"])
                     break
             break
+
+def get_todo_id_from_title(todo_title):
+    response = requests.get(API_URL + "/todos")
+    todos = response.json()["todos"]
+    for todo in todos:
+        if todo["title"] == todo_title:
+            return todo["id"]
+    return None
+
+def get_category_id_from_title(category_title):
+    response = requests.get(API_URL + "/categories")
+    categories = response.json()["categories"]
+    for category in categories:
+        if category["title"] == category_title:
+            return category["id"]
+    return None
     
+def delete_project_todo_relationship(todo_title, project_id):
+    response = requests.get(API_URL + "/projects/" + str(project_id) + "/tasks")
+    todos = response.json()["todos"]
+    for todo in todos:
+        if todo["title"] == todo_title:
+            delete_project_task(todo["id"])
+            break
+
+def delete_project_category_relationship(category_title, project_id):
+    response = requests.get(API_URL + "/projects/" + str(project_id) + "/categories")
+    categories = response.json()["categories"]
+    for category in categories:
+        if category["title"] == category_title:
+            delete_default_project_category(category["id"])
+            break
