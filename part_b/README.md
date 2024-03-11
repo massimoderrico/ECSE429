@@ -1,4 +1,4 @@
-# Part A
+# Part B
 
 This story test suite uses Pytest for testing, and specifically incorporates the `pytest-random-order` plugin to randomize the order of test execution and `pytest-bdd` to execute gherkin scripts. Below are the instructions for installing Pytest and running tests with different configurations.
 
