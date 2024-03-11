@@ -1,20 +1,33 @@
 Feature: Create Todo
-  I want to create an new todo for the todo list API 
+  As a user, I want to create an new todo 
 
   Background:
-    Given the database contains the following todos:
-    | title             | doneStatus | description        | categories | tasksof
-    | scan paperwork    |    false   |                    | id: 1      | id: 1
-    | file paperwork    |    false   |                    |            | id: 1
+      Given the API is responsive
+      And the database contains the default todo objects
 
   # Normal Flow
 
-  Scenario Outline: Successfully create a new todo
-    When a new todo is created with title "<todo_name>", doneStatus "<todo_done_status>" and description "<todo_desc>" 
-    Then a new todo exists in the database with title "<todo_name>", doneStatus "<todo_done_status>" and description "<todo_desc>" 
-    Then the number of todos in the database is "3"
+  Scenario Outline: Successfully create a new todo with only title
+    When a new todo is created with title "<todo_name>"
+    Then the status code 201 will be received
+    Then a new todo exists in the database with title "<todo_name>"
+
+
+  # Error Flow
+
+  Scenario Outline: Create a new todo without a title
+    When a new todo is created without a title
+    Then the error <error> shall be raised with http status code <httpstatus>
 
     Examples:
-      | firstname | lastname | email                | password       | authorities |
-      | Mo        | Salah    | mo.salah@gmail.com   | MoIsAwesome01  | Moderator   |
-      | Bob       | Marley   | bob.marley@gmail.com | BobIsAwesome01 | Moderator   |
+        | error                      | httpstatus |
+        | title : field is mandatory | 400        | 
+
+  # Alternate Flow
+
+  Scenario Outline: Successfully create a new todo with all feilds
+    When a new todo is created with title "<todo_name>", doneStatus "<todo_done_status>" and description "<todo_desc>" 
+    Then the status code 201 will be received
+    Then a new todo exists in the database with title "<todo_name>", doneStatus "<todo_done_status>" and description "<todo_desc>" 
+
+
