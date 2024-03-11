@@ -1,9 +1,30 @@
 import pytest
-from pytest_bdd import given, when, then, scenarios, parsers
-from utils.cat_utils import *
+from pytest_bdd import given, when, then, scenario, parsers
+from utils_b.cat_utils import *
 
 
-scenarios("../resources/create_cat_todo.feature")
+@scenario(
+    "../resources/categories/create_cat_todo.feature",
+    "Create a category todo with only title",
+)
+def test_create_cat_todo_normal():
+    pass
+
+
+@scenario(
+    "../resources/categories/create_cat_todo.feature",
+    "Create a category todo specifying all fields of todos",
+)
+def test_create_cat_todo_alternative():
+    pass
+
+
+@scenario(
+    "../resources/categories/create_cat_todo.feature",
+    "Create a category todo without title",
+)
+def test_create_cat_todo_error():
+    pass
 
 
 @when(
@@ -11,7 +32,7 @@ scenarios("../resources/create_cat_todo.feature")
         "the user requests to create a todo with title {title} under category {categoryID}"
     )
 )
-def create_simple_cat_todo(title, categoryID, response):
+def create_simple_cat_todo(title, categoryID, response, reset_database_cats):
     response["response"] = requests.post(
         API_URL + f"/categories/{categoryID}/todos",
         json={"title": title},
@@ -23,7 +44,9 @@ def create_simple_cat_todo(title, categoryID, response):
         "the user will receive the created todo object with title {title}, done status {doneStatus}, and description {description}"
     )
 )
-def check_created_cat_todo(title, doneStatus, description, response):
+def check_created_cat_todo(
+    title, doneStatus, description, response, reset_database_cats
+):
     cat_todo = response["response"].json()
     assert cat_todo["title"] == title
     assert cat_todo["doneStatus"] == doneStatus
@@ -36,7 +59,9 @@ def check_created_cat_todo(title, doneStatus, description, response):
         "the user requests to create a todo with title {title},  done status {doneStatus}, and description {description} under category {categoryID}"
     )
 )
-def create_complete_cat_todo(title, doneStatus, description, categoryID, response):
+def create_complete_cat_todo(
+    title, doneStatus, description, categoryID, response, reset_database_cats
+):
     response["response"] = requests.post(
         API_URL + f"/categories/{categoryID}/todos",
         json={
@@ -51,7 +76,7 @@ def create_complete_cat_todo(title, doneStatus, description, categoryID, respons
 @when(
     parsers.parse("the user requests to create a todo with under category {categoryID}")
 )
-def create_cat_todo_no_title(categoryID, response):
+def create_cat_todo_no_title(categoryID, response, reset_database_cats):
     response["response"] = requests.post(
         API_URL + f"/categories/{categoryID}/todos",
         json={},
