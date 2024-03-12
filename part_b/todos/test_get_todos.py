@@ -4,7 +4,7 @@ from utils_b.todo_utils import *
 import requests
 
 
-scenarios("../resources/get_todos.feature")
+scenarios("../resources/todos/get_todos.feature")
 
 # Normal FLow
 

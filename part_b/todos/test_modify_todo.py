@@ -9,15 +9,15 @@ def reset_modify_todo():
     yield 
     reset_default_todo_values("scan paperwork", "", 1)
 
-@scenario('../resources/modify_todo.feature', 'Modify the description of a todo')
+@scenario('../resources/todos/modify_todo.feature', 'Modify the description of a todo')
 def test_modify_todo_normal():
     pass
 
-@scenario('../resources/modify_todo.feature', 'Modify the title of a todo')
+@scenario('../resources/todos/modify_todo.feature', 'Modify the title of a todo')
 def test_modify_todo_alternative():
     pass
 
-@scenario('../resources/modify_todo.feature', 'Modify a todo with an invalid todo ID')
+@scenario('../resources/todos/modify_todo.feature', 'Modify a todo with an invalid todo ID')
 def test_modify_todo_error():
     pass
 

@@ -8,15 +8,15 @@ def reset_create_todo(response):
     yield 
     delete_todo(response["response"].json()["id"])
 
-@scenario('../resources/create_todo.feature', 'Successfully create a new todo with only title')
+@scenario('../resources/todos/create_todo.feature', 'Successfully create a new todo with only title')
 def test_create_todo_normal():
     pass
 
-@scenario('../resources/create_todo.feature', 'Successfully create a new todo with all fields')
+@scenario('../resources/todos/create_todo.feature', 'Successfully create a new todo with all fields')
 def test_create_todo_alternative():
     pass
 
-@scenario('../resources/create_todo.feature', 'Create a new todo without a title')
+@scenario('../resources/todos/create_todo.feature', 'Create a new todo without a title')
 def test_create_todo_error():
     pass
 

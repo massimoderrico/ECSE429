@@ -8,15 +8,15 @@ def cleanup_tmp_todo(todos):
     yield
     delete_todo(todos["todos"][0].json()["id"])
 
-@scenario('../resources/delete_todo.feature', 'Delete a todo')
+@scenario('../resources/todos/delete_todo.feature', 'Delete a todo')
 def test_delete_todo_normal():
     pass
 
-@scenario('../resources/delete_todo.feature', 'Delete a todo category')
+@scenario('../resources/todos/delete_todo.feature', 'Delete a todo category')
 def test_delete_todo_alternative():
     pass
 
-@scenario('../resources/delete_todo.feature', 'Delete a todo with invalid todo ID')
+@scenario('../resources/todos/delete_todo.feature', 'Delete a todo with invalid todo ID')
 def test_delete_todo_error():
     pass
 

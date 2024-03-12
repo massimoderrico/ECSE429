@@ -17,15 +17,15 @@ def create_default_todo_cat_link(response, todo_cat):
     yield
 
 
-@scenario('../resources/get_todo_categories.feature', 'Get all categories under a todo')
+@scenario('../resources/todos/get_todo_categories.feature', 'Get all categories under a todo')
 def test_get_todo_categories_normal():
     pass
 
-@scenario('../resources/get_todo_categories.feature', 'Get no categories under a todo')
+@scenario('../resources/todos/get_todo_categories.feature', 'Get no categories under a todo')
 def test_get_todo_categories_alternative():
     pass
 
-@scenario('../resources/get_todo_categories.feature', 'Get no categories under a todo')
+@scenario('../resources/todos/get_todo_categories.feature', 'Get no categories under a todo')
 def test_get_todo_categories_error():
     pass
 
