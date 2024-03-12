@@ -1,10 +1,24 @@
 import pytest
 import requests
-from pytest_bdd import given, when, then, scenarios, parsers
-from utils.todo_utils import *
+from pytest_bdd import given, when, then, scenario, parsers
+from utils_b.todo_utils import *
 
-# Define the scenario(s)
-scenarios('../resources/delete_todos.feature')
+@pytest.fixture()
+def reset_create_todo(response):
+    yield 
+    delete_todo(response["response"].json()["id"])
+
+@scenario('../resources/create_todo.feature', 'Successfully create a new todo with only title')
+def test_create_todo_normal():
+    pass
+
+@scenario('../resources/create_todo.feature', 'Successfully create a new todo with all fields')
+def test_create_todo_alternative():
+    pass
+
+@scenario('../resources/create_todo.feature', 'Create a new todo without a title')
+def test_create_todo_error():
+    pass
 
 # Normal Flow 
 
@@ -12,11 +26,11 @@ scenarios('../resources/delete_todos.feature')
 def create_todo_title(title, response):
     response["response"] = requests.post(
         API_URL + "/todos",
-        json={"title": title},
+        json={"title": title}
     )
 
 @then(parsers.parse("a new todo exists in the database with title {title}"))
-def check_create_todo_title(title, response):
+def check_create_todo_title(title, response, reset_create_todo):
     todo = response["response"].json()   
     assert todo["title"] == title
 
@@ -24,15 +38,19 @@ def check_create_todo_title(title, response):
 #Alternate Flow
 
 @when(parsers.parse("a new todo is created with title {title}, doneStatus {doneStatus} and description {description}"))
-def create_todo_all(title, doneStatus, description, response):
+def create_todo_all( title, doneStatus, description, response):
+    if doneStatus == "true":
+        doneStatus = True
+    else:
+        doneStatus = False
     response["response"] = requests.post(
         API_URL + "/todos",
-        json={"title": title,"doneStatus": doneStatus ,"description": description},
+        json={"title": title, "doneStatus": doneStatus ,"description": description}
     )
   
 
 @then(parsers.parse("a new todo exists in the database with title {title}, doneStatus {doneStatus} and description {description}"))
-def check_create_todo_all(title, doneStatus, description, response):
+def check_create_todo_all(title, doneStatus, description, response, reset_create_todo):
     todo = response["response"].json()   
     assert todo["title"] == title
     assert todo["doneStatus"] == doneStatus
@@ -46,10 +64,6 @@ def create_without_title(response):
         API_URL + "/todos",
         json={},
     )
-
-# delete the created todo from the database
-# @pytest.hookimpl
-# def pytest_bdd_after_scenario(request,feature,scenario):
 
 
 

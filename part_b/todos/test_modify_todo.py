@@ -1,6 +1,6 @@
 import pytest
 from pytest_bdd import given, scenario, then, when, parsers
-from utils.todo_utils import *
+from utils_b.todo_utils import *
 from conftest import *
 import requests
 
@@ -8,8 +8,6 @@ import requests
 def reset_modify_todo():
     yield 
     reset_default_todo_values("scan paperwork", "", 1)
-
- 
 
 @scenario('../resources/modify_todo.feature', 'Modify the description of a todo')
 def test_modify_todo_normal():
@@ -30,7 +28,7 @@ def test_modify_todo_error():
         "the user requests to modify the description of todo {id} to description {description}"
     )
 )
-def modify_todo_desc(id, description, response):
+def modify_todo_desc(id, description, response, reset_modify_todo):
     response["response"] = requests.post(
         API_URL + f"/todos/{id}",
         json={"description": description}
@@ -41,14 +39,11 @@ def modify_todo_desc(id, description, response):
         "the user will receive the modified todo object with id {id} and description {description}"
     )
 )
-def check_todo_desc(id, description, response):
+def check_todo_desc(id, description, response, reset_modify_todo):
     todo = response["response"].json()
     assert todo["id"] == str(id)
     assert todo["description"] == description
 
-@then("the todo is reset")
-def reset_todo():
-    reset_default_todo_values("scan paperwork", "", 1)
 # Alternate Flow 
     
 @when(
@@ -57,7 +52,7 @@ def reset_todo():
     )
 )
 
-def when_modify_todo_title(id, title, response):
+def when_modify_todo_title(id, title, response, reset_modify_todo):
     response["response"] = requests.post(
         API_URL + "/todos/" + str(id),
         json={"title": title},
@@ -69,7 +64,7 @@ def when_modify_todo_title(id, title, response):
         "the user will receive the modified todo object with id {id} and title {title}"
     )
 )
-def check_todo_title(id, title, response):
+def check_todo_title(id, title, response, reset_modify_todo):
     todo = response["response"].json()
     assert todo["id"] == str(id)
     assert todo["title"] == title
@@ -77,7 +72,7 @@ def check_todo_title(id, title, response):
 # # Error Flow
 
 @when(parsers.parse("the user requests to modify a todo with invalid id {id}"))
-def when_modify_invalid_id(id, response):
+def when_modify_invalid_id(id, response, reset_modify_todo):
     response["response"] = requests.post(
         API_URL + "/todos/" + str(id),
         json={}

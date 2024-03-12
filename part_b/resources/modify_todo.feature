@@ -11,7 +11,7 @@ Feature: Modify Todo
          When the user requests to modify the description of todo <id> to description <description>
          Then the status code 200 will be received
          Then the user will receive the modified todo object with id <id> and description <description>
-         Then the todo is reset
+         
 
          Examples:
              | id | description        |
@@ -22,7 +22,7 @@ Feature: Modify Todo
          When the user requests to modify the title of todo <id> to title <title>
          Then the status code 200 will be received
          Then the user will receive the modified todo object with id <id> and title <title>
-         Then the todo is reset
+         
 
          Examples:
              | id | title | 

@@ -35,6 +35,14 @@ default_todos = {
     ]
 }
 
+default_categories = {
+    "categories": [
+        {"id": "1", "title": "Office", "description": ""},
+        {"id": "2", "title": "Home", "description": ""},
+    ]
+}
+
+
 empty_todos = {"todos" : []}
 todo_name = "Todo_1"
 todo_desc = "This is a nice todo"
@@ -54,8 +62,4 @@ def create_todo(payload):
     assert response.status_code == 201
     return response.json()
 
-def double_delete_todo_taskof(todo_id, taskof_id):
-    response = requests.delete(API_URL + f"/todos/{todo_id}/tasksof/{taskof_id}")
-    assert response.status_code == 200
-    response = requests.delete(API_URL + f"/projects/{taskof_id}")
-    assert response.status_code == 200
+

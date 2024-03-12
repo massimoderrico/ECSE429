@@ -8,14 +8,13 @@ Feature: Get all categories under a todo
      # Normal Flow
      
      Scenario Outline: Get all categories under a todo
-         Given the todo <todoID> has a category <categoryID>
          When the user requests to get all categories under todo <todoID>
          Then the status code 200 will be received
          Then the user will receive a list of all categories under todo <todoID>
 
          Examples:
-             | todoID | categoryID |
-             | 1      |     1      |
+             | todoID | 
+             |    1   |      
 
      # Alternate Flow
      Scenario Outline: Get no categories under a todo
