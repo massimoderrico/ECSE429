@@ -14,7 +14,7 @@ def todo_cat():
 
 @pytest.fixture
 def response():
-    return {}
+    return {"response": {}}
 
 
 @given("the API is responsive")
@@ -51,4 +51,3 @@ def check_status_code(status_code, response):
 def modify_invalid_id_error(error, httpstatus, response):
     assert response["response"].status_code == int(httpstatus)
     assert response["response"].json()["errorMessages"][0] == error
-
