@@ -5,7 +5,7 @@
 
 <!-- originally from
 
-https://github.com/checkstyle/checkstyle/blob/master/src/main/resources/sun_checks.xml
+https://github.com/checkstyle/checkstyle/blob/master/src/main/resources/todos/sun_checks.xml
 
 Amended 20180723 to ignore javadoc checks, and LineLength and TodoComment
 

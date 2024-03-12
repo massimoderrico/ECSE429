@@ -2,6 +2,7 @@ import pytest
 from pytest_bdd import given, then, parsers
 from utils_b.cat_utils import *
 from utils_b.projects_utils import *
+from utils_b.todo_utils import *
 
 
 @pytest.fixture
@@ -13,6 +14,13 @@ def context():
 def cats():
     return {"categories": []}
 
+@pytest.fixture
+def todos():
+    return {"todos": []}
+
+@pytest.fixture
+def todo_cat():
+    return {"todo_cat": []}
 
 @pytest.fixture
 def cat_projects():
@@ -34,12 +42,17 @@ def reset_database_cats(scope="module"):
     yield
     cleanup_cats()
 
-
 @given("the API is responsive")
 def api_is_responsive():
     response = requests.get(API_URL)
     assert response.status_code == 200, "API is not active"
 
+@given("the database contains the default todo objects")
+def database_contains_default_todo_objects():
+    response = requests.get(API_URL + "/todos")
+    assert response.status_code == 200
+    todos = sorted(response.json()["todos"], key=lambda x: int(x["id"]))
+    assert todos == default_todos["todos"]
 
 @given("the database contains the default category objects")
 def database_contains_default_category_objects(cats):
