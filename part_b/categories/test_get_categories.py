@@ -33,12 +33,12 @@ def all_categories_resp(response, reset_database_cats):
 
 
 @then("the user will receive a list of all categories")
-def check_all_categories(todos, response, reset_database_cats):
+def check_all_categories(cats, response, reset_database_cats):
     assert {
         "categories": sorted(
             response["response"].json()["categories"], key=lambda x: int(x["id"])
         )
-    } == todos
+    } == cats
 
 
 @when(parsers.parse("the user requests to get all categories with title {title}"))
@@ -51,17 +51,17 @@ def get_all_categories_with_title(title, response, reset_database_cats):
 @then(
     parsers.parse("the user will receive a list of all categories with title {title}")
 )
-def check_all_cat_with_desc(todos, title, response, reset_database_cats):
+def check_all_cat_with_desc(cats, title, response, reset_database_cats):
     filtered_response = list(
         filter(
             lambda category: category["title"] == title,
             response["response"].json()["categories"],
         )
     )
-    filtered_todos = list(
-        filter(lambda category: category["title"] == title, todos["categories"])
+    filtered_cats = list(
+        filter(lambda category: category["title"] == title, cats["categories"])
     )
-    assert sorted(filtered_response, key=lambda x: int(x["id"])) == filtered_todos
+    assert sorted(filtered_response, key=lambda x: int(x["id"])) == filtered_cats
 
 
 @when(parsers.parse("the user requests to get all categories with invalid id {id}"))

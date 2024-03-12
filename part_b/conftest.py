@@ -10,7 +10,7 @@ def context():
 
 
 @pytest.fixture
-def todos():
+def cats():
     return {"categories": []}
 
 
@@ -42,13 +42,13 @@ def api_is_responsive():
 
 
 @given("the database contains the default category objects")
-def database_contains_default_category_objects(todos):
+def database_contains_default_category_objects(cats):
     # cleanup_cats()
     response = requests.get(API_URL + "/categories")
     assert response.status_code == 200
     categories = sorted(response.json()["categories"], key=lambda x: int(x["id"]))
     assert categories == default_categories["categories"]
-    todos["categories"] = default_categories["categories"]
+    cats["categories"] = default_categories["categories"]
 
 
 @given("the database contains the default project objects")
