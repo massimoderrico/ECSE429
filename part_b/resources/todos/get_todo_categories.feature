@@ -4,6 +4,7 @@ Feature: Get all categories under a todo
      Background:
          Given the API is responsive
          And the database contains the default todo objects
+         And the database contains the default category objects
 
      # Normal Flow
      
