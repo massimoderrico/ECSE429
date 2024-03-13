@@ -1,3 +1,2 @@
-Do we have to test the HEAD and OPT endpoints or only endpoints with business logic
-Are the same nested ids intended? area of potential instability
-What to put in the summaries?
+https://docs.sonarsource.com/sonarqube/latest/try-out-sonarqube/ 
+https://github.com/McGill-ECSE429-Fall2021/tutorials-public/wiki/Tutorial-3--Static-Analyzers,-SonarQube-and-Infer 
