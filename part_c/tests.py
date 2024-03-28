@@ -89,7 +89,7 @@ def test_object_create(cur_obj):
     assert True
 
 @pytest.mark.parametrize("cur_obj", range(num_worksheets))
-def object_delete(cur_obj):
+def test_object_delete(cur_obj):
      # list to save ids
     object_ids = []
     worksheet = workbook.worksheets()[cur_obj]
@@ -112,7 +112,7 @@ def object_delete(cur_obj):
         worksheet.write(i+1, d_time_col, delete_time/100000.0)
 
 @pytest.mark.parametrize("cur_obj", range(num_worksheets))
-def object_modify(cur_obj):
+def test_object_modify(cur_obj):
 
     # list to save ids
     object_ids = []
