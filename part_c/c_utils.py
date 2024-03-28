@@ -1,6 +1,50 @@
 import requests
+import xlsxwriter
 
 API_URL = "http://localhost:4567"
+
+header = 0
+n_col = 0
+tt_col = 1
+c_time_col = 2
+m_time_col= 3
+d_time_col= 4
+c_cpu_col = 5
+m_cpu_col= 6
+d_cpu_col= 7
+c_mem_col = 8
+m_mem_col= 9
+d_mem_col= 10
+
+# number of initial objects 
+n = 2
+workbook = xlsxwriter.Workbook('test_results.xlsx')
+num_worksheets = 3
+
+def init_worksheets():
+    for cur_obj in range(0,num_worksheets,1):
+        obj = ""
+        assert cur_obj >=0 and cur_obj <= 2
+        if cur_obj == 0:
+            obj = "Todo"
+        elif cur_obj == 1:
+            obj = "Project"
+        elif cur_obj == 2:
+            obj = "Category"
+        
+        worksheet = workbook.add_worksheet(f"{obj} Results")
+        worksheet.write(header, n_col, "Number of Objects")
+        worksheet.write(header, tt_col, "Transaction Time")
+        worksheet.write(header, c_time_col, f"Create {obj} Time")
+        worksheet.write(header, m_time_col, f"Modify {obj} Time")
+        worksheet.write(header, d_time_col, f"Delete {obj} Time")
+        worksheet.write(header, c_cpu_col, f"Create {obj} CPU Usage")
+        worksheet.write(header, m_cpu_col, f"Modify {obj} CPU Usage")
+        worksheet.write(header, d_cpu_col, f"Delete {obj} CPU Usage")
+        worksheet.write(header, c_mem_col, f"Create {obj} Memory Usage")
+        worksheet.write(header, m_mem_col, f"Modify {obj} Memory Usage")
+        worksheet.write(header, d_mem_col, f"Delete {obj} Memory Usage")
+   
 
 # Default data
 default_todos = {
@@ -152,5 +196,52 @@ def delete_category(id):
     assert response.status_code == 200
 
 
+def create_object(object_type, payload):
+    if object_type == 0:
+        return create_todo(payload)
+    elif object_type == 1:
+        return create_project(payload)
+    elif object_type == 2:
+        return create_category(payload)
+    else:
+        return None
 
+def modify_object(object_type, cur_id, payload):
+    if object_type == 0:
+        return modify_todo(cur_id, payload)
+    elif object_type == 1:
+        return modify_project(cur_id, payload)
+    elif object_type == 2:
+        return modify_category(cur_id, payload)
+    else:
+        return None
+
+def delete_object(object_type, cur_id):
+    if object_type == 0:
+        return delete_todo(cur_id)
+    elif object_type == 1:
+        return delete_project(cur_id)
+    elif object_type == 2:
+        return delete_category(cur_id)
+    else:
+        return None
     
+def payload_object(object_type):
+    if object_type == 0:
+        return todo_payload
+    elif object_type == 1:
+        return project_payload
+    elif object_type == 2:
+        return category_payload
+    else:
+        return None
+    
+def modified_payload_object(object_type):
+    if object_type == 0:
+        return todo_modified_payload
+    elif object_type == 1:
+        return project_modified_payload
+    elif object_type == 2:
+        return category_modified_payload
+    else:
+        return None
