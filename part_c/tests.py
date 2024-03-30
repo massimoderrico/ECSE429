@@ -133,7 +133,7 @@ def test_object_modify(cur_obj):
         done_modify = time.time_ns()
 
         #get time delta and write to excel file
-        modify_time = start_time - done_modify 
+        modify_time = done_modify - start_time 
         worksheet.write(i+1, n_col, i)
         worksheet.write(i+1, m_time_col, modify_time/100000.0)
 
