@@ -17,7 +17,7 @@ m_mem_col= 9
 d_mem_col= 10
 
 # number of initial objects 
-n = 1000
+n = 100
 # sleep time 
 sleep_time = 0.5
 
