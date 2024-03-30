@@ -58,29 +58,25 @@ def test_object_create(cur_obj):
     # starts from 0 initial objects in database to n
     for i in range(n+1):
         start_time = time.time_ns()
-        # start_cpu = psutil.cpu_percent()
-        # start_mem = psutil.virtual_memory().used
         response = create_object(cur_obj, payload_object(cur_obj))
-        # done_mem = psutil.virtual_memory().used
-        # done_cpu = psutil.cpu_percent()
         done_create = time.time_ns()
-
+        mem_usage = psutil.virtual_memory().percent
+        cpu_usage = psutil.cpu_percent()
         #save created id
         object_ids.append(response["id"])
 
         #get time delta
         create_time = done_create - start_time
-        #get cpu usage
-        # cpu_used = start_cpu - done_cpu
-        #get memory usage
-        # mem_used = start_mem - done_mem
-
+ 
         #log all data in excel file
         
         worksheet.write(i+1, n_col, i)
         worksheet.write(i+1, c_time_col, create_time/100000.0)
-        # worksheet.write(i+1, c_cpu_col, cpu_used)
-        # worksheet.write(i+1, c_mem_col, mem_used)
+        worksheet.write(i+1, c_cpu_col, cpu_usage)
+        worksheet.write(i+1, c_mem_col, mem_usage)
+        
+        #sleep so that cpu and mem usage are registered correctly
+        time.sleep(sleep_time)
         
     # Clean Up Objects
     for extra_id in object_ids:
@@ -106,10 +102,17 @@ def test_object_delete(cur_obj):
         #stop time
         done_delete = time.time_ns()
 
+        mem_usage = psutil.virtual_memory().percent
+        cpu_usage = psutil.cpu_percent()
+
         #get time delta and write to excel file
         delete_time = done_delete - start_time
         worksheet.write(i+1, n_col, i)
         worksheet.write(i+1, d_time_col, delete_time/100000.0)
+        worksheet.write(i+1, d_cpu_col, cpu_usage)
+        worksheet.write(i+1, d_mem_col, mem_usage)
+        time.sleep(sleep_time)
+        
 
 @pytest.mark.parametrize("cur_obj", range(num_worksheets))
 def test_object_modify(cur_obj):
@@ -132,10 +135,18 @@ def test_object_modify(cur_obj):
         modify_object(cur_obj, current_object_id, modified_payload_object(cur_obj))
         done_modify = time.time_ns()
 
+        mem_usage = psutil.virtual_memory().percent
+        cpu_usage = psutil.cpu_percent()
+
         #get time delta and write to excel file
         modify_time = done_modify - start_time 
         worksheet.write(i+1, n_col, i)
         worksheet.write(i+1, m_time_col, modify_time/100000.0)
+        worksheet.write(i+1, m_cpu_col, cpu_usage)
+        worksheet.write(i+1, m_mem_col, mem_usage)
+        time.sleep(sleep_time)
+
+        time.sleep(sleep_time)
 
     # Clean Up Objects
     for extra_id in object_ids:

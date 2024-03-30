@@ -17,7 +17,10 @@ m_mem_col= 9
 d_mem_col= 10
 
 # number of initial objects 
-n = 100
+n = 1000
+# sleep time 
+sleep_time = 0.5
+
 workbook = xlsxwriter.Workbook('test_results.xlsx')
 num_worksheets = 3
 
